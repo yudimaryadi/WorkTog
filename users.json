@@ -1,0 +1,31 @@
+[
+    {
+        "username": "andisansan",
+        "first_name": "Andi",
+        "last_name": "Sandika",
+        "dateOfBirth": "1998-02-20",
+        "gender": "male",
+        "email": "kanatahidayat@gmail.com",
+        "password": "andi12345",
+        "role": "Provider"
+    },{
+        "username": "kayboni",
+        "first_name": "Kaydi",
+        "last_name": "Bonikani",
+        "dateOfBirth": "1978-12-25",
+        "gender": "male",
+        "email": "kayboni8@gmail.com",
+        "password": "kay12345",
+        "role": "Provider"
+    },
+    {
+        "username": "Devi Cahayu",
+        "first_name": "Devi",
+        "last_name": "Cahayu",
+        "dateOfBirth": "1998-12-25",
+        "gender": "female",
+        "email": "deviwahyu200@gmail.com",
+        "password": "devi12345",
+        "role": "Provider"
+    }
+]
