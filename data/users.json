@@ -7,7 +7,7 @@
         "gender": "male",
         "email": "kanatahidayat@gmail.com",
         "password": "andi12345",
-        "role": "Provider"
+        "role": "provider"
     },{
         "username": "kayboni",
         "first_name": "Kaydi",
@@ -16,7 +16,7 @@
         "gender": "male",
         "email": "kayboni8@gmail.com",
         "password": "kay12345",
-        "role": "Provider"
+        "role": "provider"
     },
     {
         "username": "Devi Cahayu",
@@ -26,6 +26,6 @@
         "gender": "female",
         "email": "deviwahyu200@gmail.com",
         "password": "devi12345",
-        "role": "Provider"
+        "role": "provider"
     }
 ]
