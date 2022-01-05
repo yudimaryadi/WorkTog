@@ -1,1 +1,11 @@
-tes123
+<form method="get">
+            <label for="filter">Sorting Post</label>
+            <select class="custom-select" name="filter">
+                <option disabled selected>Choose Sorting Post By</option>
+                <option type="submit" value="AZ">Title A to Z</option>
+                <option value="ZA">Title Z to A</option>
+                <option value="jOpen">Job Open</option>
+                <option value="jClose">Job Close</option>
+            </select>
+            <button type="submit">Filtering</button>
+</form>
