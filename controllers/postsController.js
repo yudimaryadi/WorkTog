@@ -15,20 +15,20 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
-        let tampung = []
+        let container = {}
         User.findAll()
         //let idMatch = User.getMatchId(result,req.session.user)
         .then((result)=>{
-            let idMatch = User.getMatchId(result,req.session.user)
-            tampung.push(idMatch)
+            let match = User.getMatchId(result,req.session.user)
+            container.user = match
             return Post.findAll({
                 include : [Tag, User]
             })
         })
         .then((result) => {
             // res.send({cek: hasil})
-            // console.log(tampung)
-            res.render('postHome', {posts: result, name : req.session.user, id : tampung[0]})
+            // console.log(container, container.user[0],container.user[1])
+            res.render('postHome', {posts: result, name : req.session.user, id : container.user[0], role : container.user[1] })
         })
         // res.render('postHome')
     }
