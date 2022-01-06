@@ -56,10 +56,14 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
         notEmpty: true
       }
-    }
+    },
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
   });
+  Post.beforeCreate((post, options) => {
+    post.status = "Open"
+  })
   return Post;
 };

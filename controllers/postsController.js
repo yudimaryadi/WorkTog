@@ -14,14 +14,12 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
-        Tag.findAll({
-            where: {
-                id : 10
-            },
-            include: [Post]
+        Post.findAll({
+                include: [User,Tag]
         })
         .then((result) => {
-            res.send({tags: result})
+            // res.send({posts: result})
+            res.render('postHome', {posts: result})
         })
         // res.render('postHome')
     }
