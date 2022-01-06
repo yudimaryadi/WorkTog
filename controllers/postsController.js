@@ -1,5 +1,6 @@
 const {User, Post, Tag, Post_Tag} = require('../models')
-const indonesia = require('indonesia')
+const indonesia = require('indonesia');
+const user = require('../models/user');
 
 class postController{
     static postsHomePage(req, res){
@@ -14,7 +15,14 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
-        res.render('postHome')
+        Post.findAll({
+                include: [User,Tag]
+        })
+        .then((result) => {
+            // res.send({posts: result})
+            res.render('postHome', {posts: result, name : req.session.user})
+        })
+        // res.render('postHome')
     }
 
     static addPostinganPage(req, res){
@@ -23,7 +31,8 @@ class postController{
             indonesia.getProvinces(prov => {
                 res.render('postJob', {
                     tags : tags,
-                    prov : prov
+                    prov : prov,
+                    name : req.session.user
                 }) 
             })
             // res.send(tags)
@@ -47,11 +56,12 @@ class postController{
             location : req.body.location,
             UserId : 1,
             status : req.body.status
-        })
+        }
+        )
         .then((result) => {
             return Post_Tag.create({
                 TagId : req.body.TagId,
-                PostId : result.id
+                PostId: result.id
             })
         })
         .then(() => {
