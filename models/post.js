@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Post.belongsTo(models.User,{foreignKey: "UserId"})
+      Post.hasMany(models.Post_Tag,{foreignKey: "PostId", as: "IdPosts"})
+      Post.belongsToMany(models.Tag,{through: "Post_Tags"})
     }
   };
   Post.init({
@@ -47,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     UserId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true,
@@ -58,5 +61,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Post',
   });
+
   return Post;
 };

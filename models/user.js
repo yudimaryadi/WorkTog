@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Post,{foreignKey: "UserId", as: "IdUsers"})
     }
   };
   User.init({
@@ -39,9 +40,16 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    dateOfBirth: DataTypes.DATE,
-    gender: {
+    dateOfBirth: {
       type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
+    },
+    gender: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: true,
@@ -76,6 +84,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+  }),
+  User.beforeCreate((user, options) => {
+    user.firstName = user.firstName.toUpperCase();
+    user.lastName = user.lastName.toUpperCase();
   });
   return User;
 };
