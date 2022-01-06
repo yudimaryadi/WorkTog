@@ -1,4 +1,5 @@
 const {User, Post} = require('../models')
+const indonesia = require('indonesia')
 
 class postController{
     static postsHomePage(req, res){
@@ -19,7 +20,12 @@ class postController{
     static addPostinganPage(req, res){
         User.findAll()
         .then((users) => {
-            res.render('addpostinganPage', {users}) 
+            indonesia.getProvinces(prov =>{
+                res.render('addpostinganPage', {
+                    users,
+                    prov
+                }) 
+            })
         }).catch((err) => {
             res.send(err)
         });
@@ -31,7 +37,7 @@ class postController{
             content : req.body.content,
             imgUrl : req.body.imgUrl,
             location : req.body.location,
-            UserId : req.params.id,
+            UserId : req.params.userid,
             status : req.body.status,
         })
         .then((result) => {
@@ -41,7 +47,7 @@ class postController{
         });
     }
 
-    
+
 
 }
 module.exports = postController
