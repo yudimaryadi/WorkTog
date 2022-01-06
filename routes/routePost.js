@@ -1,6 +1,10 @@
 const routePost = require ('express').Router()
 const postController = require('../controllers/postsController');
 
+const multer  = require('multer')
+const upload = multer({ dest: '../dataImg_upload' })
+
+
 
 
 const middle1 = (req, res, next) => {
@@ -16,8 +20,11 @@ const middle1 = (req, res, next) => {
 
 routePost.get('/', postController.postsHomePage)
 routePost.get('/add', postController.addPostinganPage)
-// routePost.post('/add', postController.addPostinganPage)
 routePost.post('/add', postController.addPostinganToDb)
+// routePost.post('/add', upload.single('uploaded_file'), (req ,res)=>{
+//     console.log(req.file, req.body)
+//     res.send(req.file)
+// })
 
 
 

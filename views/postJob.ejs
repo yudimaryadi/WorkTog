@@ -9,9 +9,8 @@
 <body>
     <h3>Ini nama akun yg login</h3>
     <br>
-    <form method="post">
-        <input type="hidden" name="PostId" value="<%=  %> ">
-        
+    <form method="post" enctype="multipart/form-data">
+
         <label for="TagId">Tag</label>
         <select name="TagId" id="">
         <option disabled selected>Choose Location</option>
@@ -23,7 +22,7 @@
         <label for="title">Title</label>
         <input type="text" name="title" id=""><br>
         <label for="img">Upload image:</label>
-        <input type="file" id="img" name="img" accept="image/*"><br>
+        <input type="file" name="img" />
         <label for="content">Describe Job</label><br>
         <textarea name="content" id="" cols="30" rows="10"></textarea><br>
 

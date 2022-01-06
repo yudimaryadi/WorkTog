@@ -48,9 +48,10 @@ class postController{
             UserId : 1,
             status : req.body.status
         })
-        .then(() => {
+        .then((result) => {
             return Post_Tag.create({
-                TagId : req.body.TagId
+                TagId : req.body.TagId,
+                PostId : result.id
             })
         })
         .then(() => {
