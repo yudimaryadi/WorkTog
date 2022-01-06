@@ -1,4 +1,5 @@
 const {User, Post} = require('../models')
+const indonesia = require('indonesia')
 
 class usersController{
     static userLoginPage(req, res){
@@ -37,7 +38,7 @@ class usersController{
             gender: req.body.gender,
             email: req.body.email,
             password: req.body.password,
-            role: req.body.role
+            rote: req.body.role
         })
         .then((result) => {
             res.redirect('/')

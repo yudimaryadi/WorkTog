@@ -16,10 +16,14 @@
         <input type="file" id="img" name="img" accept="image/*"><br>
         <label for="content">Describe Job</label><br>
         <textarea name="content" id="" cols="30" rows="10"></textarea><br>
+
         <label for="location">Location</label>
-        <select name="location" id=""></select>
+        <select name="location" id="">
         <option disabled selected>Choose Location</option>
-        <option value="<%= prov.name%>"></option>
+        <% prov.forEach(provinsi=>{ %>
+        <option value="<%= provinsi.name%>"><%= provinsi.name%></option>
+        <% }) %> 
+        </select><br><br>
         <button type="submit">Create New Post Job</button>
     </form>
 </body>

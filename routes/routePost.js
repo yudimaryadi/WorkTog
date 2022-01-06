@@ -15,5 +15,6 @@ const middle1 = (req, res, next) => {
 }
 
 routePost.get('/',middle1, postController.postsHomePage)
+routePost.get('/add/:userid',middle1, postController.addPostinganPage)
 
 module.exports =  routePost
