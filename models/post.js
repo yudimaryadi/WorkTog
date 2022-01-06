@@ -62,8 +62,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Post',
   });
+
   Post.beforeCreate((post, options) => {
     post.status = "Open"
   })
+
   return Post;
 };

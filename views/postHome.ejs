@@ -22,9 +22,17 @@
     <title>Home</title>
 </head>
 <body>
-    
+
+  <div>
+    <form action="/users/logout">
+      <button type="submit">logout</button>
+    </form>
+    <nav>
+      <a href="/posts/add/<%= id %>">Add Post</a>
+    </nav>
+  </div>
   
-    <h5>account: </h5>
+    <h5>account: <%= name %>  </h5>
     <br>
     <div>
         <form method="get">
@@ -34,7 +42,7 @@
     </div>
     <% for (let i = 0; i < posts.length; i++){ %>
     <div class="card">
-        <h6>Status : posts[i].status<%=%></h6>
+        <h6>Status : <%=posts[i].status %></h6>
         <h4>Name: <%= posts[i].User.username%></h3>
         <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
         <div class="container">
