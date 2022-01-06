@@ -23,8 +23,8 @@
 </head>
 <body>
     
-
-    <h5>account: <"disini masukkan namanya"></h5>
+  
+    <h5>account: </h5>
     <br>
     <div>
         <form method="get">
@@ -32,16 +32,21 @@
             <button type="submit">Search</button>
         </form><br>
     </div>
+    <% for (let i = 0; i < posts.length; i++){ %>
     <div class="card">
-        <h3>Nama: user yang bikin</h3>
-        <img src="https://cdn06.pramborsfm.com/storage/app/media/Prambors/Editorial/NFT%20Bored%20Ape%20Yacht%20Club-20211214165446.jpg?tr=w-800" alt="img" style="width:100%">
+        <h6>Status : posts[i].status<%=%></h6>
+        <h4>Name: <%= posts[i].User.username%></h3>
+        <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
         <div class="container">
-        <p>ini adalah sebuah contoh konten</p>
-        <h6>lokasi</h6>
-        <h6>tanggal buat</h6>
+        <h3><%= posts[i].title %></h3>
+        <p><%= posts[i].content%></p>
+        <h6><%= posts[i].location%></h6>
+        <h6><%= formatDate(posts[i].createdAt)%></h6>
+        <br>
+        <h6><i><%= posts[i].Tags.name %></i></h6>
         </div>
     </div>
-    
+  <% } %>
 
 
 </body>

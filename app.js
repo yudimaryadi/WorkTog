@@ -6,6 +6,8 @@ const port = 3000
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:true}))
+app.locals.formatDate = require('./helpers/formatDate')
+
 app.use('/', route)
 
 app.listen(port, () => {
