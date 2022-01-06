@@ -37,7 +37,7 @@ class usersController{
             gender: req.body.gender,
             email: req.body.email,
             password: req.body.password,
-            role: req.body.role
+            rote: req.body.role
         })
         .then((result) => {
             res.redirect('/')
