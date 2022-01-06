@@ -27,9 +27,21 @@
     <form action="/users/logout">
       <button type="submit">logout</button>
     </form>
+    <% if (role === "provider") { %>
     <nav>
       <a href="/posts/add/<%= id %>">Add Post</a>
     </nav>
+  </div>
+  
+  <h5>account: <%= name %>  </h5>
+  <br>
+  <div>
+      <form method="get">
+          <input type="search" name="search" placeholder="Search your job">
+          <button type="submit">Search</button>
+      </form><br>
+  </div>
+    <% } else {%>
   </div>
   
     <h5>account: <%= name %>  </h5>
@@ -40,7 +52,11 @@
             <button type="submit">Search</button>
         </form><br>
     </div>
+    <h3> Daftar Postingan Lowongan Pekerjaan</h3>
+    <% } %>
     <% for (let i = 0; i < posts.length; i++){ %>
+    <% if (role === "provider" && id === posts[i].User.id) { %>
+      <h3>Daftar Postingan Kerja yang dibuat</h3>
     <div class="card">
         <h6>Status : <%=posts[i].status %></h6>
         <h4>Name: <%= posts[i].User.username%></h3>
@@ -54,6 +70,21 @@
         <h6><i><%= posts[i].Tags.name %></i></h6>
         </div>
     </div>
+    <% }else if (role === "seeker") { %>
+      <div class="card">
+        <h6>Status : <%=posts[i].status %></h6>
+        <h4>Name: <%= posts[i].User.username%></h3>
+        <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
+        <div class="container">
+        <h3><%= posts[i].title %></h3>
+        <p><%= posts[i].content%></p>
+        <h6><%= posts[i].location%></h6>
+        <h6><%= formatDate(posts[i].createdAt)%></h6>
+        <br>
+        <h6><i><%= posts[i].Tags.name %></i></h6>
+        </div>
+    </div>
+    <% } %>
   <% } %>
 
 

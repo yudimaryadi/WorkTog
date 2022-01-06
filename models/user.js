@@ -16,15 +16,15 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getMatchId(data,name){
-      let idd = ""
+      let idRole = []
         data.forEach(el => {
           // console.log(el.username,'=',name)
           if (el.username === name){
-            idd = el.id
+            idRole.push(el.id, el.rote)
           }
         })
-      console.log(idd)
-      return idd
+      console.log(idRole)
+      return idRole
       
     }
   };
