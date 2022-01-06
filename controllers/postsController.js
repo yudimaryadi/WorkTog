@@ -1,4 +1,4 @@
-const {User, Post} = require('../models')
+const {User, Post, Tag, Post_Tag} = require('../models')
 const indonesia = require('indonesia')
 
 class postController{
@@ -18,32 +18,47 @@ class postController{
     }
 
     static addPostinganPage(req, res){
-        User.findAll()
-        .then((users) => {
-            indonesia.getProvinces(prov =>{
-                res.render('addpostinganPage', {
-                    users,
-                    prov
+        Tag.findAll()
+        .then((tags) => {
+            indonesia.getProvinces(prov => {
+                res.render('postJob', {
+                    tags : tags,
+                    prov : prov
                 }) 
             })
+            // res.send(tags)
         }).catch((err) => {
+            console.log(err);
             res.send(err)
         });
+
+        // indonesia.getProvinces(prov =>{
+        //     res.render('postJob', {
+        //         prov
+        //     }) 
+        // })
     }
 
     static addPostinganToDb(req, res){
         Post.create({
             title : req.body.title,
             content : req.body.content,
-            imgUrl : req.body.imgUrl,
+            imgUrl : req.body.img,
             location : req.body.location,
-            UserId : req.params.userid,
-            status : req.body.status,
+            UserId : 1,
+            status : req.body.status
         })
-        .then((result) => {
+        .then(() => {
+            return Post_Tag.create({
+                TagId : req.body.TagId
+            })
+        })
+        .then(() => {
             res.redirect('/posts/')
-        }).catch((err) => {
-            req.send('/')
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
         });
     }
 
