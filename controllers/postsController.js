@@ -1,5 +1,6 @@
 const {User, Post, Tag, Post_Tag} = require('../models')
-const indonesia = require('indonesia')
+const indonesia = require('indonesia');
+
 
 class postController{
     static postsHomePage(req, res){
@@ -14,12 +15,20 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
-        Post.findAll({
-                include: [User,Tag]
+        let tampung = []
+        User.findAll()
+        //let idMatch = User.getMatchId(result,req.session.user)
+        .then((result)=>{
+            let idMatch = User.getMatchId(result,req.session.user)
+            tampung.push(idMatch)
+            return Post.findAll({
+                include : [Tag, User]
+            })
         })
         .then((result) => {
-            // res.send({posts: result})
-            res.render('postHome', {posts: result})
+            // res.send({cek: hasil})
+            // console.log(tampung)
+            res.render('postHome', {posts: result, name : req.session.user, id : tampung[0]})
         })
         // res.render('postHome')
     }
@@ -30,7 +39,8 @@ class postController{
             indonesia.getProvinces(prov => {
                 res.render('postJob', {
                     tags : tags,
-                    prov : prov
+                    prov : prov,
+                    name : req.session.user
                 }) 
             })
             // res.send(tags)
@@ -47,12 +57,13 @@ class postController{
     }
 
     static addPostinganToDb(req, res){
+        console.log(req.params)
         Post.create({
             title : req.body.title,
             content : req.body.content,
             imgUrl : req.body.img,
             location : req.body.location,
-            UserId : 1,
+            UserId : req.params.id,
             status : req.body.status
         }
         )

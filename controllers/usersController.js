@@ -1,5 +1,6 @@
 const {User, Post} = require('../models')
 const indonesia = require('indonesia')
+const { comparePassword } = require('../helpers/bcrypt')
 
 class usersController{
     static userLoginPage(req, res){
@@ -14,7 +15,8 @@ class usersController{
             }
         })
         .then((user) => {
-            if (user.password == req.body.password){
+            if (user && comparePassword(req.body.password, user.password)){
+                req.session.user = user.username
                 res.redirect("/")
             }
             else {
@@ -46,6 +48,13 @@ class usersController{
             console.log(err);
             res.send(err)
         });
+    }
+
+    static logout(req, res){
+        req.session.destroy(err=>{
+            if(err) res.send(err)
+            res.redirect("/users/login")
+        })
     }
 
 

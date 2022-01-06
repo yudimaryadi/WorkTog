@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { hashingPassword } = require('../helpers/bcrypt')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,6 +13,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Post,{foreignKey: "UserId"})
+    }
+
+    static getMatchId(data,name){
+      let idd = ""
+        data.forEach(el => {
+          // console.log(el.username,'=',name)
+          if (el.username === name){
+            idd = el.id
+          }
+        })
+      console.log(idd)
+      return idd
+      
     }
   };
   User.init({
@@ -88,6 +102,7 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate((user, options) => {
     user.firstName = user.firstName.toUpperCase();
     user.lastName = user.lastName.toUpperCase();
+    user.password = hashingPassword(user.password)
   });
   return User;
 };
