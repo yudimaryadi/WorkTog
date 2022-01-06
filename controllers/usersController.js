@@ -45,8 +45,8 @@ class usersController{
         .then((result) => {
             res.redirect('/')
         }).catch((err) => {
-            console.log(err);
-            res.send(err)
+            console.log(err.message);
+            res.send(err.message)
         });
     }
 

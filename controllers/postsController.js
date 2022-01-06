@@ -26,13 +26,15 @@ class postController{
     }
 
     static addPostinganPage(req, res){
+        let error = req.query.err || null
         Tag.findAll()
         .then((tags) => {
             indonesia.getProvinces(prov => {
                 res.render('postJob', {
                     tags : tags,
                     prov : prov,
-                    name : req.session.user
+                    name : req.session.user,
+                    err : error
                 }) 
             })
             // res.send(tags)
@@ -54,7 +56,7 @@ class postController{
             content : req.body.content,
             imgUrl : req.body.img,
             location : req.body.location,
-            UserId : 1,
+            UserId : 6,
             status : req.body.status
         }
         )
@@ -68,8 +70,7 @@ class postController{
             res.redirect('/posts/')
         })
         .catch((err) => {
-            console.log(err);
-            res.send(err);
+            res.redirect('/posts/add?err=' + err.message);
         });
     }
 

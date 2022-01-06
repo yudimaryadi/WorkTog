@@ -19,42 +19,57 @@ module.exports = (sequelize, DataTypes) => {
   Post.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        //notNull: true,
+        notEmpty: {
+          args : true,
+          msg : 'Title Tidak Boleh Kosong !'
+        }
       }
     },
     content: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        //notNull: true,
+        notEmpty:{
+          args: true,
+          msg: "Describe tidak Boleh Kosong !"
+        }
       }
     },
     imgUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        //notNull: true,
+        notEmpty: {
+          args : true,
+          msg : 'images Tidak Boleh Kosong !'
+        }
       }
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        //notNull: true,
+        notEmpty: {
+          args : true,
+          msg : 'location Tidak Boleh Kosong !'
+        }
       }
     },
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      //allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        //notNull: true,
+        notEmpty: {
+          args : true,
+          
+        }
       }
     }
   }, {

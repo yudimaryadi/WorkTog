@@ -24,6 +24,7 @@
     "express-session": "^1.17.2",
     "indonesia": "0.0.3",
     "multer": "^1.4.4",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "sequelize": "^6.12.5"
   }
