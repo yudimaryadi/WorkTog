@@ -1,8 +1,8 @@
 [
-    {"name": "Akuntansi / Keuangan"},
-    {"name": "Hotel / Restoran"},
-    {"name": "Pendidikan / Pelatihan"},
-    {"name": "Komputer / Teknologi Informasi"},
-    {"name": "Bangunan / Konstruksi"},
-    {"name": "Seni / Media / Komunikasi"}
+{"name": "Akuntansi / Keuangan"},
+{"name":" Hotel / Restoran"},
+{"name": "Pendidikan / Pelatihan"},
+{"name": "Komputer / Teknologi Informasi"},
+{"name": "Bangunan / Konstruksi"},
+{"name": "Seni / Media / Komunikasi"}
 ]
