@@ -1,4 +1,5 @@
 const {User, Post} = require('../models')
+const indonesia = require('indonesia')
 
 class usersController{
     static userLoginPage(req, res){
@@ -46,6 +47,7 @@ class usersController{
             res.send(err)
         });
     }
+
 
 }
 module.exports = usersController

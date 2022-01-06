@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    // static getIdPost(){
+    //   let idPost = sequelize.query(
+    //     `
+    //     SELECT id
+    //     FROM "Posts"
+    //     `, {type: QueryTypes.SELECT}
+    //   );
+    //   return idPost
+    // }
     static associate(models) {
       // define association here
       Post_Tag.belongsTo(models.Post, {foreignKey: "PostId"})
@@ -22,5 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Post_Tag',
   });
+  // Post_Tag.beforeCreate((posttag, options) => {
+  //   posttag.PostId = Post_Tag.getIdPost
+    
+  // });
   return Post_Tag;
 };
