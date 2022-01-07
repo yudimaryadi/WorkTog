@@ -26,7 +26,7 @@ class postController{
     }
 
     static addPostinganPage(req, res){
-        let error = req.query.err || null
+        let error = req.query.err || ''
         Tag.findAll()
         .then((tags) => {
             indonesia.getProvinces(prov => {
@@ -74,6 +74,57 @@ class postController{
         });
     }
 
+
+    //menu Postingan
+    static deletePosts (req, res) {
+        Post.destroy({
+            where :{
+                id: req.params.postId
+            }
+        })
+        .then((result) => {
+            req.redirect('/')
+        }).catch((err) => {
+            console.log(err);
+            req.send(err)
+        });
+    }
+
+    static editPostsPage(req, res){
+        Post.findOne({
+            where: {
+                id: req.params.postId
+            }
+        })
+        .then((posts) => {
+            res.render('editPostJob', {posts})
+        }).catch((err) => {
+            console.log(err);
+            res.send(err)
+        })
+    }
+
+    static updatePost(req, res){
+        Post.update({
+            title : req.body.title,
+            content : req.body.content,
+            imgUrl : req.body.img,
+            location : req.body.location,
+            UserId : req.params.id,
+            status : req.body.status
+        },
+        {
+            where: {
+                id : req.params.postId
+            }
+        })
+        .then((posts) => {
+            res.redirect('/')
+        }).catch((err) => {
+            console.log(err);
+            res.send(err)
+        })
+    }
 
 
 }

@@ -10,6 +10,7 @@ const middle1 = (req, res, next) => {
     }
 }
 
+
 routePost.get('/',middle1, postController.postsHomePage)
 routePost.get('/add',middle1, postController.addPostinganPage)
 routePost.post('/add', postController.addPostinganToDb)
