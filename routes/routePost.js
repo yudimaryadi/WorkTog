@@ -14,6 +14,9 @@ const middle1 = (req, res, next) => {
 routePost.get('/',middle1, postController.postsHomePage)
 routePost.get('/add/:id',middle1, postController.addPostinganPage)
 routePost.post('/add/:id', postController.addPostinganToDb)
+routePost.get('/delete/:id',postController.deletePosts)
+routePost.get('/edit/:id',postController.editPostsPage)
+routePost.post('/edit/:id',postController.updatePost)
 
 
 
