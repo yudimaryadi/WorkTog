@@ -1,7 +1,6 @@
 const routePost = require ('express').Router()
 const postController = require('../controllers/postsController');
 
-
 const middle1 = (req, res, next) => {
     // console.log('hello from middle1')
     if (req.session.user) {
