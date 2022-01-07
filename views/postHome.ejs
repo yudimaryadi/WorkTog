@@ -52,11 +52,14 @@
             <button type="submit">Search</button>
         </form><br>
     </div>
+      <% } %>
+    <% if (role === "provider") {%>
+    <h3>Daftar Postingan Kerja yang dibuat</h3>
+    <% } else { %>
     <h3> Daftar Postingan Lowongan Pekerjaan</h3>
     <% } %>
     <% for (let i = 0; i < posts.length; i++){ %>
     <% if (role === "provider" && id === posts[i].User.id) { %>
-      <h3>Daftar Postingan Kerja yang dibuat</h3>
     <div class="card">
         <h6>Status : <%=posts[i].status %></h6>
         <h4>Name: <%= posts[i].User.username%></h3>

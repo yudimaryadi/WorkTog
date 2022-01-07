@@ -1,6 +1,6 @@
 const {User, Post, Tag, Post_Tag} = require('../models')
 const indonesia = require('indonesia');
-
+const {Op} = require('sequelize')
 
 class postController{
     static postsHomePage(req, res){
@@ -15,6 +15,7 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
+        let title = req.query.search || ""
         let container = {}
         User.findAll()
         //let idMatch = User.getMatchId(result,req.session.user)
@@ -22,7 +23,11 @@ class postController{
             let match = User.getMatchId(result,req.session.user)
             container.user = match
             return Post.findAll({
-                include : [Tag, User]
+                where : {
+                    title : {
+                        [Op.iLike] : `%${title}%`
+                    }
+                },include : [Tag, User]                             
             })
         })
         .then((result) => {
@@ -34,13 +39,16 @@ class postController{
     }
 
     static addPostinganPage(req, res){
+        let error = req.query.err || ""
         Tag.findAll()
         .then((tags) => {
             indonesia.getProvinces(prov => {
                 res.render('postJob', {
                     tags : tags,
                     prov : prov,
-                    name : req.session.user
+                    name : req.session.user,
+                    err  : error,
+                    id   : req.session.id
                 }) 
             })
             // res.send(tags)
@@ -57,7 +65,6 @@ class postController{
     }
 
     static addPostinganToDb(req, res){
-        console.log(req.params)
         Post.create({
             title : req.body.title,
             content : req.body.content,
@@ -77,8 +84,7 @@ class postController{
             res.redirect('/posts/')
         })
         .catch((err) => {
-            console.log(err);
-            res.send(err);
+            res.redirect(`/posts/add/${req.params.id}?err=` + err.message);
         });
     }
 
