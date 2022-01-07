@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    get fullName(){
+      return this.firstName+" "+this.lastName
+    }
     static associate(models) {
       // define association here
       User.hasMany(models.Post,{foreignKey: "UserId"})

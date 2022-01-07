@@ -33,6 +33,7 @@ class postController{
         .then((result) => {
             // res.send({cek: hasil})
             // console.log(container, container.user[0],container.user[1])
+            // res.send(result)
             res.render('postHome', {posts: result, name : req.session.user, id : container.user[0], role : container.user[1] })
         })
         // res.render('postHome')

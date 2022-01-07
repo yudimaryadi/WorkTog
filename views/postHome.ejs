@@ -4,23 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .card {
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.3s;
-          width: 20%;
-        }
-        
-        .card:hover {
-          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-        
-        .container {
-          padding: 1px 8px;
-        }
-        </style>
+    <link rel="stylesheet" href="style.css">
     <title>Home</title>
 </head>
+<center>
 <body>
 
   <div>
@@ -61,14 +48,15 @@
     <% for (let i = 0; i < posts.length; i++){ %>
     <% if (role === "provider" && id === posts[i].User.id) { %>
     <div class="card">
+      <br>
         <div>
           <button><a href="/posts/delete/<%=posts[i].id%>">Delete Post</a></button>
           <button><a href="/posts/edit/<%=posts[i].id%>">Update Post</a></button>
         </div>
         <h6>Status : <%=posts[i].status %></h6>
-        <h4>Name: <%= posts[i].User.username%></h3>
-        <img src="./uploads/fotopormalpakih.jpg" alt="img" style="width:100%">
-        <h3>../<%= posts[i].imgUrl%></h3>
+        <h6>Job Type : <%=posts[i].Tags[0].name %></h6>
+        <h5>Created by <%= posts[i].User.fullName%></h5>
+        <img src="<%= posts[i].imgUrl%>" alt="<%= posts[i].imgUrl%>" style="width:100%">
         <div class="container">
         <h3><%= posts[i].title %></h3>
         <p><%= posts[i].content%></p>
@@ -81,8 +69,9 @@
     <% }else if (role === "seeker" && posts[i].status === "Open") { %>
       <div class="card">
         <h6>Status : <%=posts[i].status %></h6>
-        <h4>Name: <%= posts[i].User.username%></h3>
-        <img src="<%= posts[i].imgUrl%>"/>
+        <h6>Job Type : <%=posts[i].Tags[0].name %></h6>
+        <h5>Created by <%= posts[i].User.fullName%></h5>
+        <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
         <div class="container">
         <h3><%= posts[i].title %></h3>
         <p><%= posts[i].content%></p>
@@ -97,4 +86,5 @@
 
 
 </body>
+</center>
 </html>

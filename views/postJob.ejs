@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Job Posting</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<center>
 <body>
     <h3> My Account: <%= name %> </h3>
     <br>
     <h2>Add New Job Posting</h2>
     <br>
-    <h4><%= err.split('Validation error:').join('') %></h4>
+    <h4 style='color: red;'><%= err.split('Validation error:').join('') %></h4>
     <form method="post" enctype="multipart/form-data">
 
-        <label for="TagId">Tag</label>
+        <label for="TagId">Job Type</label>
         <select name="TagId" id="">
         <option disabled selected>Choose Tag</option>
         <% tags.forEach(tag=>{ %>
@@ -44,4 +46,5 @@
         <button type="submit">Create New Post Job</button>
     </form>
 </body>
+</center>
 </html>
