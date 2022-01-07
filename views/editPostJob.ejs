@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Update</title>
+</head>
+<body>
+    <h3> My Account: <%= name %> </h3>
+    <br>
+    <br>
+    <h2>Update Job Posting Information</h2>
+    <form method="post" >
+        <label for="title">Title</label>
+        <input type="text" name="title" value= "<%= post[0].title %>" id=""><br>
+        <label for="content">Describe Job</label><br>
+        <textarea name="content" id="" cols="30" rows="10"><%= post[0].content%></textarea><br>
+        <label for="status">Status Post Job:</label><br>
+        <select name="status" id="status">
+            <option <%= post[0].status %> === "Open" ? "selected" : "" %> value="Open">Open</option>
+            <option <%= post[0].status %> === "Close" ? "selected" : "" %> value="Close">Close</option>
+        </select><br>
+        <br>
+        <button type="submit">Update Job Post</button>
+    </form>
+</body>
+</html>

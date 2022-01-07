@@ -1,6 +1,6 @@
 const {User, Post, Tag, Post_Tag} = require('../models')
 const indonesia = require('indonesia');
-const user = require('../models/user');
+const {Op} = require('sequelize')
 
 class postController{
     static postsHomePage(req, res){
@@ -15,18 +15,31 @@ class postController{
         //     console.log(err);
         //     res.send(err)
         // });
-        Post.findAll({
-                include: [User,Tag]
+        let title = req.query.search || ""
+        let container = {}
+        User.findAll()
+        //let idMatch = User.getMatchId(result,req.session.user)
+        .then((result)=>{
+            let match = User.getMatchId(result,req.session.user)
+            container.user = match
+            return Post.findAll({
+                where : {
+                    title : {
+                        [Op.iLike] : `%${title}%`
+                    }
+                },include : [Tag, User]                             
+            })
         })
         .then((result) => {
-            // res.send({posts: result})
-            res.render('postHome', {posts: result, name : req.session.user})
+            // res.send({cek: hasil})
+            // console.log(container, container.user[0],container.user[1])
+            res.render('postHome', {posts: result, name : req.session.user, id : container.user[0], role : container.user[1] })
         })
         // res.render('postHome')
     }
 
     static addPostinganPage(req, res){
-        let error = req.query.err || ''
+        let error = req.query.err || ""
         Tag.findAll()
         .then((tags) => {
             indonesia.getProvinces(prov => {
@@ -34,7 +47,8 @@ class postController{
                     tags : tags,
                     prov : prov,
                     name : req.session.user,
-                    err : error
+                    err  : error,
+                    id   : req.session.id
                 }) 
             })
             // res.send(tags)
@@ -51,12 +65,15 @@ class postController{
     }
 
     static addPostinganToDb(req, res){
+        JSON.stringify(req.file)
+        let img = req.file.path.replace(/\\/g, "/")
+
         Post.create({
             title : req.body.title,
             content : req.body.content,
-            imgUrl : req.body.img,
+            imgUrl : img,
             location : req.body.location,
-            UserId : 6,
+            UserId : req.params.id,
             status : req.body.status
         }
         )
@@ -70,36 +87,41 @@ class postController{
             res.redirect('/posts/')
         })
         .catch((err) => {
-            res.redirect('/posts/add?err=' + err.message);
+            res.redirect(`/posts/add/${req.params.id}?err=` + err.message);
         });
     }
 
-
-    //menu Postingan
     static deletePosts (req, res) {
-        Post.destroy({
+        console.log(req.params.id)
+        Post_Tag.destroy({
             where :{
-                id: req.params.postId
+                PostId: req.params.id
             }
         })
-        .then((result) => {
-            req.redirect('/')
+        .then(() => {
+            return Post.destroy({
+                where : {
+                    id: req.params.id
+                }
+            })
+        })
+        .then(() => {
+            res.redirect('/')
         }).catch((err) => {
             console.log(err);
-            req.send(err)
+            res.send(err)
         });
     }
-
     static editPostsPage(req, res){
-        Post.findOne({
+        Post.findAll({
             where: {
-                id: req.params.postId
+                id: req.params.id
             }
         })
         .then((posts) => {
-            res.render('editPostJob', {posts})
+            // res.send({name: req.session.user,post : posts})
+            res.render('editPostJob', {name: req.session.user, post: posts })
         }).catch((err) => {
-            console.log(err);
             res.send(err)
         })
     }
@@ -110,19 +132,17 @@ class postController{
             content : req.body.content,
             imgUrl : req.body.img,
             location : req.body.location,
-            UserId : req.params.id,
             status : req.body.status
         },
         {
             where: {
-                id : req.params.postId
+                id : req.params.id
             }
         })
-        .then((posts) => {
+        .then(() => {
             res.redirect('/')
         }).catch((err) => {
-            console.log(err);
-            res.send(err)
+            res.redirect(`/posts/edit/${req.params.id}`);
         })
     }
 

@@ -22,15 +22,29 @@
     <title>Home</title>
 </head>
 <body>
+
+  <div>
     <form action="/users/logout">
       <button type="submit">logout</button>
     </form>
-
-    <form action="/posts/add" method="GET">
-      <button type="submit">add postiingan</button>
-    </form>
+    <% if (role === "provider") { %>
+    <nav>
+      <a href="/posts/add/<%= id %>">Add Post</a>
+    </nav>
+  </div>
   
-    <h5>account: <%= name %>  </h5>
+  <h3>My Account: <%= name %>  </h3>
+  <br>
+  <div>
+      <form method="get">
+          <input type="search" name="search" placeholder="Search your job">
+          <button type="submit">Search</button>
+      </form><br>
+  </div>
+    <% } else {%>
+  </div>
+  
+  <h3> My Account: <%= name %> </h3>
     <br>
     <div>
         <form method="get">
@@ -38,19 +52,47 @@
             <button type="submit">Search</button>
         </form><br>
     </div>
+      <% } %>
+    <% if (role === "provider") {%>
+    <h3>Daftar Postingan Kerja yang dibuat</h3>
+    <% } else { %>
+    <h3> Daftar Postingan Lowongan Pekerjaan</h3>
+    <% } %>
     <% for (let i = 0; i < posts.length; i++){ %>
+    <% if (role === "provider" && id === posts[i].User.id) { %>
     <div class="card">
-        <h4>Name: <%= //posts[i].User.username%></h3>
-        <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
+        <div>
+          <button><a href="/posts/delete/<%=posts[i].id%>">Delete Post</a></button>
+          <button><a href="/posts/edit/<%=posts[i].id%>">Update Post</a></button>
+        </div>
+        <h6>Status : <%=posts[i].status %></h6>
+        <h4>Name: <%= posts[i].User.username%></h3>
+        <img src="./uploads/fotopormalpakih.jpg" alt="img" style="width:100%">
+        <h3>../<%= posts[i].imgUrl%></h3>
         <div class="container">
         <h3><%= posts[i].title %></h3>
         <p><%= posts[i].content%></p>
         <h6><%= posts[i].location%></h6>
-        <h6><%= posts[i].createdAt%></h6>
+        <h6><%= formatDate(posts[i].createdAt)%></h6>
+        <br>
+        <h6><i><%= posts[i].Tags.name %></i></h6>
+        </div>
+    </div><br>
+    <% }else if (role === "seeker" && posts[i].status === "Open") { %>
+      <div class="card">
+        <h6>Status : <%=posts[i].status %></h6>
+        <h4>Name: <%= posts[i].User.username%></h3>
+        <img src="<%= posts[i].imgUrl%>"/>
+        <div class="container">
+        <h3><%= posts[i].title %></h3>
+        <p><%= posts[i].content%></p>
+        <h6><%= posts[i].location%></h6>
+        <h6><%= formatDate(posts[i].createdAt)%></h6>
         <br>
         <h6><i><%= posts[i].Tags.name %></i></h6>
         </div>
     </div>
+    <% } %>
   <% } %>
 
 

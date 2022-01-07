@@ -8,6 +8,9 @@ const port = 3000
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:true}))
 
+app.locals.formatDate = require('./helpers/formatDate')
+
+
 app.use(session({
     secret : 'keyboard cat',
     resave : false,
@@ -16,6 +19,7 @@ app.use(session({
         maxAge : 60000
     }
 }))
+
 
 app.use('/', route)
 

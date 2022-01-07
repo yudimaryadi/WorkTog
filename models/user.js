@@ -12,7 +12,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Post,{foreignKey: "UserId", as: "IdUsers"})
+      User.hasMany(models.Post,{foreignKey: "UserId"})
+    }
+
+    static getMatchId(data,name){
+      let idRole = []
+        data.forEach(el => {
+          // console.log(el.username,'=',name)
+          if (el.username === name){
+            idRole.push(el.id, el.rote)
+          }
+        })
+      console.log(idRole)
+      return idRole
+      
     }
   };
   User.init({

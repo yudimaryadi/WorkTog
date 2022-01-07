@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
     static associate(models) {
       // define association here
       Post.belongsTo(models.User,{foreignKey: "UserId"})
@@ -71,10 +72,16 @@ module.exports = (sequelize, DataTypes) => {
           
         }
       }
-    }
+    },
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
   });
+
+  Post.beforeCreate((post, options) => {
+    post.status = "Open"
+  })
+
   return Post;
 };
