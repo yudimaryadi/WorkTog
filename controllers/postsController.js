@@ -65,10 +65,13 @@ class postController{
     }
 
     static addPostinganToDb(req, res){
+        JSON.stringify(req.file)
+        let img = req.file.path.replace(".", "").replace('.', "").replace(/\//g, "\\").replace('\\', "")
+
         Post.create({
             title : req.body.title,
             content : req.body.content,
-            imgUrl : req.body.img,
+            imgUrl : img,
             location : req.body.location,
             UserId : req.params.id,
             status : req.body.status

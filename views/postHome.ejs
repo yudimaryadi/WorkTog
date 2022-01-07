@@ -63,7 +63,8 @@
     <div class="card">
         <h6>Status : <%=posts[i].status %></h6>
         <h4>Name: <%= posts[i].User.username%></h3>
-        <img src="<%= posts[i].imgUrl%>" alt="img" style="width:100%">
+        <img src="<%=posts[i].imgUrl%>"/>
+        
         <div class="container">
         <h3><%= posts[i].title %></h3>
         <p><%= posts[i].content%></p>

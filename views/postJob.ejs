@@ -10,7 +10,7 @@
     <h3> <%= name %> </h3>
     <br>
     <h4><%= err.split('Validation error:').join('') %></h4>
-    <form method="post" >
+    <form method="post" enctype="multipart/form-data">
 
         <label for="TagId">Tag</label>
         <select name="TagId" id="">
@@ -22,8 +22,13 @@
 
         <label for="title">Title</label>
         <input type="text" name="title" id=""><br>
-        <label for="img">Upload image:</label>
-        <input type="file" id="img" name="img" accept="image/*"><br>
+
+        <label for="img">Upload Images:</label>
+        <input type="file" id="img" name="img" accept="image/*"> <br>
+
+        <!-- <label for="img">Upload image:</label>
+        <input type="file" id="img" name="img" accept="image/*"><br> -->
+
         <label for="content">Describe Job</label><br>
         <textarea name="content" id="" cols="30" rows="10"></textarea><br>
 
