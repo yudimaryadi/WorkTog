@@ -88,6 +88,60 @@ class postController{
         });
     }
 
+    static deletePosts (req, res) {
+        console.log(req.params.id)
+        Post_Tag.destroy({
+            where :{
+                PostId: req.params.id
+            }
+        })
+        .then(() => {
+            return Post.destroy({
+                where : {
+                    id: req.params.id
+                }
+            })
+        })
+        .then(() => {
+            res.redirect('/')
+        }).catch((err) => {
+            console.log(err);
+            res.send(err)
+        });
+    }
+    static editPostsPage(req, res){
+        Post.findAll({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then((posts) => {
+            // res.send({name: req.session.user,post : posts})
+            res.render('editPostJob', {name: req.session.user, post: posts })
+        }).catch((err) => {
+            res.send(err)
+        })
+    }
+
+    static updatePost(req, res){
+        Post.update({
+            title : req.body.title,
+            content : req.body.content,
+            imgUrl : req.body.img,
+            location : req.body.location,
+            status : req.body.status
+        },
+        {
+            where: {
+                id : req.params.id
+            }
+        })
+        .then(() => {
+            res.redirect('/')
+        }).catch((err) => {
+            res.redirect(`/posts/edit/${req.params.id}`);
+        })
+    }
 
 
 }
